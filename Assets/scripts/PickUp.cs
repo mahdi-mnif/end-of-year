@@ -4,46 +4,74 @@ using UnityEngine;
 
 public class PickUp : MonoBehaviour
 {
-    public static string actionText;
-    [SerializeField] bool canPick;
-    [SerializeField] GameObject tableKey;
-    [SerializeField] GameObject handKey;
+    [SerializeField] float pickUpRange = 5f;
+    [SerializeField] Transform holdPoint;
 
+    private Rigidbody rb;
+    private bool isHolding = false;
+    private bool canPick = false;
 
-    // Update is called once per frame
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
     void Update()
     {
-        if (canPick == true)
-        {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                this.GetComponent<BoxCollider>().enabled = false;
-                tableKey.SetActive(false);
-                handKey.SetActive(true);
-
-            }
-        }
-    }
-    void OnMouseOver()
-    {
-        if (PlayerCasting.distanceFromTarget < 5)
+        // Detect if player is looking at object (using your raycast system)
+        if (PlayerCasting.isInteractable && PlayerCasting.distanceFromTarget <= pickUpRange)
         {
             canPick = true;
+
+            if (!isHolding)
+                UiDynamics.actionText = "Pick Up";
+            else
+                UiDynamics.actionText = "Drop";
+
             UiDynamics.uiActive = true;
-            UiDynamics.actionText = "Pick Up";
         }
-        
         else
         {
             canPick = false;
             UiDynamics.uiActive = false;
-            UiDynamics.actionText = "";
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (isHolding)
+            {
+                DropObject(); // always allow dropping
+            }
+            else if (canPick)
+            {
+                PickObject(); // only pick if allowed
+            }
         }
     }
-     void OnMouseExit()
+
+    void PickObject()
     {
-        canPick = false;
-        UiDynamics.uiActive = false;
-        UiDynamics.actionText = "";
+        isHolding = true;
+
+        // Disable physics
+        rb.isKinematic = true;
+        rb.useGravity = false;
+
+        // Attach to hand
+        transform.SetParent(holdPoint);
+        transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.identity;
+    }
+
+    void DropObject()
+    {
+        isHolding = false;
+
+        // Detach
+        transform.SetParent(null);
+
+        // Enable physics
+        rb.isKinematic = false;
+        rb.useGravity = true;
     }
 }
