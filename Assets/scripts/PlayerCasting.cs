@@ -17,7 +17,7 @@ public class PlayerCasting : MonoBehaviour
         {
             distanceFromTarget = hit.distance;
 
-            if (hit.collider.CompareTag("Interactable"))
+            if (hit.collider.CompareTag("InteractiveObject"))
                 isInteractable = true;
             else
                 isInteractable = false;
