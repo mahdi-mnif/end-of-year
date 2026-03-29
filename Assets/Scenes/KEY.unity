@@ -372,7 +372,6 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 605565166}
   serializedVersion: 2
-<<<<<<< HEAD:Assets/Scenes/KEY.unity
   m_Modification:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
@@ -623,15 +622,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
-=======
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.75, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1599432899}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
->>>>>>> 909932b076e7f2b454cad23e71b602085aff0be8:Assets/Scenes/SampleScene.unity
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -967,7 +957,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 971a310cccdc84e4ca71fc78e1342bdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD:Assets/Scenes/KEY.unity
 --- !u!1 &1009880199
 GameObject:
   m_ObjectHideFlags: 0
@@ -986,15 +975,11 @@ GameObject:
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!114 &1009880200
-=======
---- !u!114 &963194230
->>>>>>> 909932b076e7f2b454cad23e71b602085aff0be8:Assets/Scenes/SampleScene.unity
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD:Assets/Scenes/KEY.unity
   m_GameObject: {fileID: 1009880199}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -1173,17 +1158,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1142716435}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-=======
-  m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76f701a1652cae5458665c63bb1f893f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sensX: 600
-  sensY: 600
-  orientation: {fileID: 605565167}
->>>>>>> 909932b076e7f2b454cad23e71b602085aff0be8:Assets/Scenes/SampleScene.unity
 --- !u!1 &1299702390
 GameObject:
   m_ObjectHideFlags: 0
@@ -2027,11 +2001,6 @@ SceneRoots:
   - {fileID: 1626006798}
   - {fileID: 1510179155}
   - {fileID: 1988702477}
-<<<<<<< HEAD:Assets/Scenes/KEY.unity
   - {fileID: 495236420}
   - {fileID: 297676083}
   - {fileID: 1009880201}
-=======
-  - {fileID: 9812922}
-  - {fileID: 1599432899}
->>>>>>> 909932b076e7f2b454cad23e71b602085aff0be8:Assets/Scenes/SampleScene.unity
