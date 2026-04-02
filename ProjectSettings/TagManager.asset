@@ -8,6 +8,7 @@ TagManager:
   - Interactable
   - Interact
   - InteractiveObject
+  - PickableObject
   layers:
   - Default
   - TransparentFX

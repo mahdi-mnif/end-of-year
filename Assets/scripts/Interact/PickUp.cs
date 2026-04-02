@@ -22,7 +22,6 @@ public class PickUp : MonoBehaviour
         if (PlayerCasting.isInteractable && PlayerCasting.distanceFromTarget <= pickUpRange)
         {
             canPick = true;
-
             if (!isHolding)
                 UiDynamics.actionText = "Pick Up";
             else
@@ -61,6 +60,7 @@ public class PickUp : MonoBehaviour
         transform.SetParent(holdPoint);
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
+        GetComponent<BoxCollider>().enabled = false;
     }
 
     void DropObject()
@@ -73,5 +73,6 @@ public class PickUp : MonoBehaviour
         // Enable physics
         rb.isKinematic = false;
         rb.useGravity = true;
+        GetComponent<BoxCollider>().enabled = true;
     }
 }

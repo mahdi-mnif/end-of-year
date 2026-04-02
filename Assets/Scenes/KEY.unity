@@ -161,7 +161,7 @@ Transform:
   m_GameObject: {fileID: 9812920}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.959, y: 3.905, z: -2.4675298}
+  m_LocalPosition: {x: -3.959, y: 3.826, z: -2.4675298}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1016,6 +1016,7 @@ GameObject:
   - component: {fileID: 1142716439}
   - component: {fileID: 1142716438}
   - component: {fileID: 1142716437}
+  - component: {fileID: 1142716443}
   m_Layer: 8
   m_Name: RedDoor
   m_TagString: InteractiveObject
@@ -1101,7 +1102,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -1157,6 +1158,27 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1142716435}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &1142716443
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1142716435}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1299702390
 GameObject:
   m_ObjectHideFlags: 0
@@ -1708,7 +1730,7 @@ Transform:
   m_GameObject: {fileID: 1757212950}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalPosition: {x: 0, y: 1.486, z: 0.062}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1929,7 +1951,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2098615619319514973, guid: 8035612bf608be94bb667ada8291518b, type: 3}
       propertyPath: m_TagString
-      value: InteractiveObject
+      value: PickableObject
       objectReference: {fileID: 0}
     - target: {fileID: 3331811436743747551, guid: 8035612bf608be94bb667ada8291518b, type: 3}
       propertyPath: m_Layer
