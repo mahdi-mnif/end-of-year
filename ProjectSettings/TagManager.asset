@@ -9,6 +9,8 @@ TagManager:
   - Interact
   - InteractiveObject
   - PickableObject
+  - Key_door1
+  - Key_Door1
   layers:
   - Default
   - TransparentFX

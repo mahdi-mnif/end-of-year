@@ -2,77 +2,76 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PickUp : MonoBehaviour
+namespace DoorScript
 {
-    [SerializeField] float pickUpRange = 5f;
-    [SerializeField] Transform holdPoint;
-
-    private Rigidbody rb;
-    private bool isHolding = false;
-    private bool canPick = false;
-
-    void Start()
+    public class PickUp : MonoBehaviour
     {
-        rb = GetComponent<Rigidbody>();
-    }
+        [SerializeField] float pickUpRange = 5f;
+        [SerializeField] Transform holdPoint;
 
-    void Update()
-    {
-        // Detect if player is looking at object (using your raycast system)
-        if (PlayerCasting.isInteractable && PlayerCasting.distanceFromTarget <= pickUpRange)
+        private Rigidbody rb;
+        private bool isHolding = false;
+        private bool canPick = false;
+
+        public bool isKey = false;
+        public int keyID;
+
+        void Start()
         {
-            canPick = true;
-            if (!isHolding)
-                UiDynamics.actionText = "Pick Up";
+            rb = GetComponent<Rigidbody>();
+        }
+
+        void Update()
+        {
+            if (PlayerCasting.isInteractable && PlayerCasting.distanceFromTarget <= pickUpRange)
+            {
+                canPick = true;
+                UiDynamics.actionText = isHolding ? "Drop" : "Pick Up";
+                UiDynamics.uiActive = true;
+            }
             else
-                UiDynamics.actionText = "Drop";
-
-            UiDynamics.uiActive = true;
-        }
-        else
-        {
-            canPick = false;
-            UiDynamics.uiActive = false;
-        }
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            if (isHolding)
             {
-                DropObject(); // always allow dropping
+                canPick = false;
+                UiDynamics.uiActive = false;
             }
-            else if (canPick)
+
+            if (Input.GetKeyDown(KeyCode.E))
             {
-                PickObject(); // only pick if allowed
+                if (isHolding)
+                    DropObject();
+                else if (canPick)
+                    PickObject();
             }
         }
-    }
 
-    void PickObject()
-    {
-        isHolding = true;
+        void PickObject()
+        {
+            isHolding = true;
+            rb.isKinematic = true;
+            rb.useGravity = false;
+            transform.SetParent(holdPoint);
+            transform.localPosition = Vector3.zero;
+            transform.localRotation = Quaternion.identity;
+            GetComponent<BoxCollider>().enabled = false;
 
-        // Disable physics
-        rb.isKinematic = true;
-        rb.useGravity = false;
+            // Tell the door system we are holding this key
+            if (isKey)
+            {
+                PlayerHand.currentHeldObject = gameObject;
+            }
+        }
 
-        // Attach to hand
-        transform.SetParent(holdPoint);
-        transform.localPosition = Vector3.zero;
-        transform.localRotation = Quaternion.identity;
-        GetComponent<BoxCollider>().enabled = false;
-    }
+        void DropObject()
+        {
+            isHolding = false;
 
-    void DropObject()
-    {
-        isHolding = false;
+            if (isKey)
+                PlayerHand.currentHeldObject = null;
 
-        // Detach
-        transform.SetParent(null);
-
-        // Enable physics
-        rb.isKinematic = false;
-        rb.useGravity = true;
-        GetComponent<BoxCollider>().enabled = true;
+            transform.SetParent(null);
+            rb.isKinematic = false;
+            rb.useGravity = true;
+            GetComponent<BoxCollider>().enabled = true;
+        }
     }
 }
