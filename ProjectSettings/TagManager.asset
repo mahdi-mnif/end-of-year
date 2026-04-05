@@ -3,7 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - CinemachineTarget
+  - Interactable
+  - Interact
+  - InteractiveObject
+  - PickableObject
+  - Key_door1
+  - Key_Door1
   layers:
   - Default
   - TransparentFX
@@ -13,9 +20,9 @@ TagManager:
   - UI
   - 
   - 
+  - Interact
   - 
-  - 
-  - 
+  - whatIsGround
   - 
   - 
   - 
