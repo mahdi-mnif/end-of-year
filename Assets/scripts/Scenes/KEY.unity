@@ -1990,7 +1990,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1975789379832626, guid: 0d14cbb38e9cb274aa98f316acbd10cf, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2133058313}
+      addedObject: {fileID: 2133058319}
   m_SourcePrefab: {fileID: 100100000, guid: 0d14cbb38e9cb274aa98f316acbd10cf, type: 3}
 --- !u!1 &1757212950
 GameObject:
@@ -2181,7 +2181,12 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1975789379832626, guid: 0d14cbb38e9cb274aa98f316acbd10cf, type: 3}
   m_PrefabInstance: {fileID: 1637876972}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2133058313
+--- !u!82 &2133058315 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 82697407254320668, guid: 0d14cbb38e9cb274aa98f316acbd10cf, type: 3}
+  m_PrefabInstance: {fileID: 1637876972}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2133058319
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2198,7 +2203,7 @@ MonoBehaviour:
   isLocked: 1
   requiredKeyTag: Key_Door1
   smooth: 1
-  asource: {fileID: 0}
+  asource: {fileID: 2133058315}
   openDoor: {fileID: 8300000, guid: 44b63b0db16ce624b97e45ebde0a0971, type: 3}
   closeDoor: {fileID: 8300000, guid: bc37ad25465405a428a26ff0facd9a7b, type: 3}
   lockedSound: {fileID: 8300000, guid: 2bd97d1dbaa6e6e49aa7fb102f82fa44, type: 3}
