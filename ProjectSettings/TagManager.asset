@@ -11,6 +11,8 @@ TagManager:
   - PickableObject
   - Key_door1
   - Key_Door1
+  - Key_Candle
+  - Cobweb
   layers:
   - Default
   - TransparentFX

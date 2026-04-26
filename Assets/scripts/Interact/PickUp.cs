@@ -23,13 +23,24 @@ namespace DoorScript
 
         void Update()
         {
-            if (PlayerCasting.isInteractable && PlayerCasting.distanceFromTarget <= pickUpRange)
+            // NEW: Check if we are looking at a cobweb first
+            bool lookingAtCobweb = false;
+            RaycastHit hit;
+            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, pickUpRange))
+            {
+                if (hit.collider.CompareTag("Cobweb"))
+                {
+                    lookingAtCobweb = true;
+                }
+            }
+
+            if (PlayerCasting.isInteractable && PlayerCasting.distanceFromTarget <= pickUpRange && !lookingAtCobweb)
             {
                 canPick = true;
                 UiDynamics.actionText = isHolding ? "Drop" : "Pick Up";
                 UiDynamics.uiActive = true;
             }
-            else
+            else if (!lookingAtCobweb) // Only hide UI if we aren't looking at a cobweb
             {
                 canPick = false;
                 UiDynamics.uiActive = false;
@@ -37,10 +48,14 @@ namespace DoorScript
 
             if (Input.GetKeyDown(KeyCode.E))
             {
-                if (isHolding)
-                    DropObject();
-                else if (canPick)
-                    PickObject();
+                // ONLY pick up or drop if we are NOT looking at a cobweb
+                if (!lookingAtCobweb)
+                {
+                    if (isHolding)
+                        DropObject();
+                    else if (canPick)
+                        PickObject();
+                }
             }
         }
 

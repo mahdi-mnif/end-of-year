@@ -16,7 +16,8 @@ public class PlayerCasting : MonoBehaviour
 
             // Changed: now it can pick up "PickableObject" OR any "Key_..." tag
             if (hit.collider.CompareTag("PickableObject") ||
-                hit.collider.tag.StartsWith("Key_"))
+                hit.collider.tag.StartsWith("Key_") ||
+                hit.collider.CompareTag("Cobweb"))
             {
                 isInteractable = true;
             }
