@@ -1,10 +1,12 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
 public class NPCFollow : MonoBehaviour
 {
-    public Transform player;          // Assign player in Inspector
-    public float stopDistance = 2f;   // Distance to stop from player
+    public Transform player;
+    public float stopDistance = 2f;
+
+    public AudioSource audioSource;   // الصوت
 
     private NavMeshAgent agent;
 
@@ -19,11 +21,18 @@ public class NPCFollow : MonoBehaviour
         {
             agent.SetDestination(player.position);
 
-            // Stop when close to player
             if (Vector3.Distance(transform.position, player.position) <= stopDistance)
             {
-                agent.ResetPath(); // stop moving
+                agent.ResetPath();
             }
+        }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            audioSource.Play();
         }
     }
 }
