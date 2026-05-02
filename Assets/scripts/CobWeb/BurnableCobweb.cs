@@ -1,62 +1,53 @@
 using UnityEngine;
 using System.Collections;
+using DoorScript;
 
 public class BurnableCobweb : MonoBehaviour
 {
-    [SerializeField] float burnRange = 3f;
-    [SerializeField] float burnDuration = 2.5f;
+    [SerializeField] float burnRange = 3.5f;
     [SerializeField] GameObject flameEffectPrefab;
+    [SerializeField] float burnDuration = 2.5f;
+
+    private bool isBurning = false;
 
     void Update()
     {
-        if (PlayerCasting.isInteractable && PlayerCasting.distanceFromTarget <= burnRange)
-        {
-            if (IsLookingAtMe())
-            {
-                if (PlayerHand.currentHeldObject != null && PlayerHand.currentHeldObject.name.Contains("Candle"))
-                {
-                    UiDynamics.actionText = "Burn";
-                    UiDynamics.uiActive = true; // This should now stay true
+        if (isBurning || PlayerHand.currentHeldObject == null) return;
 
-                    if (Input.GetKeyDown(KeyCode.E))
-                    {
-                        StartCoroutine(BurnSequence());
-                    }
-                }
-            }
-        }
-    }
+        PickUp held = PlayerHand.currentHeldObject.GetComponent<PickUp>();
+        if (held == null || !held.isCandle) return;
 
-    bool IsLookingAtMe()
-    {
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, burnRange))
         {
-            return hit.collider.gameObject == gameObject;
+            if (hit.collider.gameObject == gameObject)
+            {
+                UiDynamics.actionText = "Burn";
+                UiDynamics.uiActive = true;
+
+                if (Input.GetKeyDown(KeyCode.E))
+                    StartCoroutine(BurnCobweb());
+
+                return;
+            }
         }
-        return false;
+
+        if (UiDynamics.actionText == "Burn")
+            UiDynamics.uiActive = false;
     }
 
-    IEnumerator BurnSequence()
+    IEnumerator BurnCobweb()
     {
-        // Disable the collider immediately so you can't click it twice
-        GetComponent<Collider>().enabled = false;
+        isBurning = true;
+        UiDynamics.uiActive = false;
 
         if (flameEffectPrefab != null)
         {
-            GameObject fire = Instantiate(flameEffectPrefab, transform.position, Quaternion.identity);
-
-            var ps = fire.GetComponent<ParticleSystem>();
-            if (ps != null)
-            {
-                var shape = ps.shape;
-                shape.shapeType = ParticleSystemShapeType.Box;
-                shape.scale = transform.localScale;
-            }
-            Destroy(fire, burnDuration + 1f);
+            GameObject flame = Instantiate(flameEffectPrefab, transform.position + Vector3.up * 0.5f, Quaternion.identity);
+            Destroy(flame, burnDuration + 0.5f);
         }
 
-        float elapsed = 0;
+        float elapsed = 0f;
         Vector3 startScale = transform.localScale;
 
         while (elapsed < burnDuration)
@@ -67,7 +58,5 @@ public class BurnableCobweb : MonoBehaviour
         }
 
         Destroy(gameObject);
-        // Reset UI after destruction
-        UiDynamics.uiActive = false;
     }
 }
