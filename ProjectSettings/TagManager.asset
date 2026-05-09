@@ -13,6 +13,7 @@ TagManager:
   - Key_Door1
   - Key_Candle
   - Cobweb
+  - Candle
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Player
   - 
   - Interact
   - 
