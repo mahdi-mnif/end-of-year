@@ -14,43 +14,60 @@ namespace CameraDoorScript
 
         void Update()
         {
+            GameObject held = PlayerHand.currentHeldObject;
+
+            // Respect Burn UI - Do NOT clear if Burn is active
+            if (UiDynamics.actionText == "Burn")
+                return;
+
+            // Block door UI when holding Ice or Batteries
+            if (held != null)
+            {
+                PickUp pick = held.GetComponent<PickUp>();
+                if (pick != null && (pick.CompareTag("Key_Ice") || pick.CompareTag("Key_Batteries")))
+                {
+                    text.SetActive(false);
+                    return;
+                }
+            }
+
             RaycastHit hit;
             if (Physics.Raycast(transform.position, transform.forward, out hit, DistanceOpen))
             {
-                // Support both normal Door and LockedDoor
-                var normalDoor = hit.transform.GetComponent<Door>();
-                var lockedDoor = hit.transform.GetComponent<LockedDoor>();
+                // Give absolute priority to cobweb
+                BurnableCobweb cobweb = hit.collider.GetComponent<BurnableCobweb>();
+                if (cobweb != null)
+                {
+                    return; // Let BurnableCobweb control the UI
+                }
 
-                if (normalDoor != null || lockedDoor != null)
+                // Normal doors / safe
+                var normalDoor = hit.transform.GetComponentInParent<Door>();
+                var lockedDoor = hit.transform.GetComponentInParent<LockedDoor>();
+                var microwaveDoor = hit.transform.GetComponentInParent<MicrowaveDoor>();
+                var safePIN = hit.transform.GetComponentInParent<SafePINSystem>();
+
+                if (normalDoor != null || lockedDoor != null || microwaveDoor != null || safePIN != null)
                 {
                     text.SetActive(true);
 
-                    // Determine what text to show
-                    if (lockedDoor != null && lockedDoor.isLocked)
-                    {
+                    if (safePIN != null && !safePIN.IsUnlocked)
+                        textUI.text = "[E] Enter Code";
+                    else if (lockedDoor != null && lockedDoor.isLocked)
                         textUI.text = "[E] Unlock Door";
-                    }
                     else if (normalDoor != null && normalDoor.open ||
-                             lockedDoor != null && lockedDoor.open)
-                    {
+                             lockedDoor != null && lockedDoor.open ||
+                             microwaveDoor != null && microwaveDoor.open)
                         textUI.text = "[E] Close Door";
-                    }
                     else
-                    {
                         textUI.text = "[E] Open Door";
-                    }
 
-                    // Handle input
                     if (Input.GetKeyDown(KeyCode.E))
                     {
-                        if (lockedDoor != null)
-                        {
-                            lockedDoor.TryInteract();      // Locked door uses TryInteract
-                        }
-                        else if (normalDoor != null)
-                        {
-                            normalDoor.OpenDoor();         // Normal door uses old OpenDoor
-                        }
+                        if (safePIN != null) safePIN.TryOpenSafe();
+                        else if (lockedDoor != null) lockedDoor.TryInteract();
+                        else if (normalDoor != null) normalDoor.OpenDoor();
+                        else if (microwaveDoor != null) microwaveDoor.OpenDoor();
                     }
                 }
                 else

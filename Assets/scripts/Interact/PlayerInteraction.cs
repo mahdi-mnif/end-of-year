@@ -7,54 +7,38 @@ public class PlayerInteraction : MonoBehaviour
 
     void Update()
     {
-        if (PlayerHand.currentHeldObject != null)
+        GameObject held = PlayerHand.currentHeldObject;
+
+        // Drop logic
+        if (held != null && Input.GetKeyDown(KeyCode.E))
         {
-            // Let BurnableCobweb handle burning if possible
-            // Only drop if E is pressed and we're NOT looking at a cobweb
-            if (Input.GetKeyDown(KeyCode.E))
+            RaycastHit hit;
+            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 4f))
             {
-                // Check if we're looking at a cobweb first
-                RaycastHit hit;
-                if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 4f))
+                if (hit.collider.GetComponent<BurnableCobweb>() != null)
+                    return;
+            }
+
+            PickUp p = held.GetComponent<PickUp>();
+            if (p != null) p.DropObject();
+        }
+
+        // Normal pickup
+        if (held == null)
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, interactionRange))
+            {
+                PickUp pick = hit.collider.GetComponent<PickUp>();
+                if (pick != null && !pick.IsHolding)
                 {
-                    BurnableCobweb cobweb = hit.collider.GetComponent<BurnableCobweb>();
-                    if (cobweb != null)
-                    {
-                        // Do nothing here - let BurnableCobweb handle it
-                        return;
-                    }
+                    UiDynamics.actionText = "Pick Up";
+                    UiDynamics.uiActive = true;
+
+                    if (Input.GetKeyDown(KeyCode.E))
+                        pick.TryPickUp();
                 }
-
-                // If not looking at cobweb → Drop
-                PickUp held = PlayerHand.currentHeldObject.GetComponent<PickUp>();
-                if (held != null) held.DropObject();
-            }
-
-            if (UiDynamics.actionText == "Pick Up")
-                UiDynamics.uiActive = false;
-
-            return;
-        }
-
-        // Normal pickup when not holding anything
-        RaycastHit hit2;
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit2, interactionRange))
-        {
-            PickUp pick = hit2.collider.GetComponent<PickUp>();
-
-            if (pick != null && !pick.IsHolding)
-            {
-                UiDynamics.actionText = "Pick Up";
-                UiDynamics.uiActive = true;
-
-                if (Input.GetKeyDown(KeyCode.E))
-                    pick.TryPickUp();
-
-                return;
             }
         }
-
-        if (UiDynamics.actionText == "Pick Up")
-            UiDynamics.uiActive = false;
     }
 }

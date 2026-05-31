@@ -18,6 +18,7 @@ public class PlayerCasting : MonoBehaviour
             if (hit.collider.CompareTag("PickableObject") ||
                 hit.collider.tag.StartsWith("Key_") ||
                 hit.collider.CompareTag("Cobweb"))
+
             {
                 isInteractable = true;
             }
