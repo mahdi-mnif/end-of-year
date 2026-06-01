@@ -13,7 +13,7 @@ public class UiDynamics : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("UI State -> Text: " + actionText + " | Active: " + uiActive);
+        //Debug.Log("UI State -> Text: " + actionText + " | Active: " + uiActive);
 
         if (uiActive)
         {
