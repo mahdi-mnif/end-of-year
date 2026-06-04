@@ -57,11 +57,8 @@ namespace DoorScript
             if (pinPanel != null)
             {
                 pinPanel.SetActive(true);
-
-                // === SHOW CURSOR AND UNLOCK MOUSE ===
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
-
                 inputField.ActivateInputField();
                 inputField.text = "";
                 feedbackText.text = "";
@@ -83,7 +80,23 @@ namespace DoorScript
             if (enteredCode == correctCode)
             {
                 ShowFeedback("fair enough", Color.green);
-                UnlockSafe();
+
+                // === DISABLE COLLIDER IMMEDIATELY WHEN CORRECT CODE IS ENTERED ===
+                if (safeBody != null)
+                {
+                    Collider col = safeBody.GetComponent<Collider>();
+                    if (col != null)
+                    {
+                        col.enabled = false;
+                    }
+                }
+
+                isUnlocked = true;
+
+                if (safeDoorScript != null)
+                    safeDoorScript.OpenDoor();
+
+                Invoke("ClosePanel", 1.8f);
             }
             else
             {
@@ -100,28 +113,11 @@ namespace DoorScript
             }
         }
 
-        void UnlockSafe()
-        {
-            isUnlocked = true;
-
-            if (safeBody != null)
-            {
-                Collider col = safeBody.GetComponent<Collider>();
-                if (col != null) col.enabled = false;
-            }
-
-            if (safeDoorScript != null)
-                safeDoorScript.OpenDoor();
-
-            Invoke("ClosePanel", 1.8f);
-        }
-
         public void ClosePanel()
         {
             if (pinPanel != null)
                 pinPanel.SetActive(false);
 
-            // === HIDE CURSOR AGAIN ===
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
 
