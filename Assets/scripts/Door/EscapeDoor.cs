@@ -7,6 +7,10 @@ public class EscapeDoor : MonoBehaviour
     public GameObject exitObject;     // The object that starts DISABLED
 
     private bool exitActivated = false;
+    private void Start()
+    {
+        exitObject.SetActive(false);
+    }
 
     void Update()
     {

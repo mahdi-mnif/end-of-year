@@ -193,15 +193,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8997996947095583982, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10.504379
+      value: 10.254395
       objectReference: {fileID: 0}
     - target: {fileID: 8997996947095583982, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.237
+      value: 4.274
       objectReference: {fileID: 0}
     - target: {fileID: 8997996947095583982, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -48.161163
+      value: -49.161163
       objectReference: {fileID: 0}
     - target: {fileID: 8997996947095583982, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
       propertyPath: m_LocalRotation.w
@@ -10550,8 +10550,8 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 95090565265420528, guid: 43b3bfc3c2f2ff146a8d85e63d0a4e26, type: 3}
   m_PrefabInstance: {fileID: 1937863655}
   m_PrefabAsset: {fileID: 0}
---- !u!64 &729226171
-MeshCollider:
+--- !u!136 &729226173
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -10568,10 +10568,11 @@ MeshCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &733778779 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1311725443889936, guid: b58fdf950bf832348af4bfaa2fd9f743, type: 3}
@@ -17708,7 +17709,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   holdPoint: {fileID: 97905243}
-  isKey: 1
+  isKey: 0
   isCandle: 0
 --- !u!1001 &1377542472
 PrefabInstance:
@@ -23913,7 +23914,7 @@ PrefabInstance:
       addedObject: {fileID: 729226168}
     - targetCorrespondingSourceObject: {fileID: 1352753540370996, guid: 43b3bfc3c2f2ff146a8d85e63d0a4e26, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 729226171}
+      addedObject: {fileID: 729226173}
   m_SourcePrefab: {fileID: 100100000, guid: 43b3bfc3c2f2ff146a8d85e63d0a4e26, type: 3}
 --- !u!1 &1938913575 stripped
 GameObject:
@@ -25487,11 +25488,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ebe1f5065e34a7748ad92383a48b6cb6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.525
+      value: 1.2749996
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ebe1f5065e34a7748ad92383a48b6cb6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.855
+      value: 0.85500085
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ebe1f5065e34a7748ad92383a48b6cb6, type: 3}
       propertyPath: m_LocalPosition.z
@@ -26524,15 +26525,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1608936693582274023, guid: 8035612bf608be94bb667ada8291518b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.00000026822087
+      value: 0.49999973
       objectReference: {fileID: 0}
     - target: {fileID: 1608936693582274023, guid: 8035612bf608be94bb667ada8291518b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.3399999
+      value: 0.33999985
       objectReference: {fileID: 0}
     - target: {fileID: 1608936693582274023, guid: 8035612bf608be94bb667ada8291518b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -63.664
+      value: -77.664
       objectReference: {fileID: 0}
     - target: {fileID: 1608936693582274023, guid: 8035612bf608be94bb667ada8291518b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -26576,7 +26577,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2098615619319514973, guid: 8035612bf608be94bb667ada8291518b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2098615619319514973, guid: 8035612bf608be94bb667ada8291518b, type: 3}
       propertyPath: m_TagString
