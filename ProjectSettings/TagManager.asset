@@ -17,6 +17,7 @@ TagManager:
   - Key_Batteries
   - PickableObject
   - Bullet
+  - Exit
   layers:
   - Default
   - TransparentFX

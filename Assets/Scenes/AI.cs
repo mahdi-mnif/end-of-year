@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class NPCFollow : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class NPCFollow : MonoBehaviour
     [Header("Chase Settings")]
     public float detectionDistance = 10f;
     public float stopDistance = 2f;
+
+    [Header("Caught Settings")]
+    public string caughtSceneName = "CaughtScene";
 
     [Header("Home Position")]
     public Vector3 homePosition = new Vector3(-0.75f, 0f, -66.91301f);
@@ -22,9 +26,9 @@ public class NPCFollow : MonoBehaviour
 
     [Header("Audio")]
     public AudioSource audioSource;
+    public AudioClip detectionSound;           // ← Drag your looping sound here
 
     private NavMeshAgent agent;
-
     private Transform currentDoor;
     private DoorScript.Door currentDoorScript;
 
@@ -33,6 +37,8 @@ public class NPCFollow : MonoBehaviour
     public string deathTrigger = "Die";
     public string attackTrigger = "collision";
     public float disableDelay = 2f;
+
+    private bool hasCaughtPlayer = false;
 
     void Start()
     {
@@ -43,31 +49,57 @@ public class NPCFollow : MonoBehaviour
     {
         if (player == null) return;
 
-        float distanceToPlayer =
-            Vector3.Distance(transform.position, player.position);
+        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
-        // CHASE PLAYER
+        // ====================== PLAYER DETECTION ======================
         if (distanceToPlayer <= detectionDistance)
         {
+            // Play looping detection sound
+            if (audioSource != null && detectionSound != null && !audioSource.isPlaying)
+            {
+                audioSource.clip = detectionSound;
+                audioSource.loop = true;
+                audioSource.Play();
+            }
+
             if (distanceToPlayer > stopDistance)
             {
                 agent.SetDestination(player.position);
             }
             else
             {
+                // NPC stopped → Load caught scene
                 agent.ResetPath();
-            }
 
+                if (!hasCaughtPlayer)
+                {
+                    hasCaughtPlayer = true;
+                    Debug.Log("NPC caught the player! Loading scene: " + caughtSceneName);
+
+                    if (!string.IsNullOrEmpty(caughtSceneName))
+                    {
+                        SceneManager.LoadScene(caughtSceneName);
+                    }
+                    else
+                    {
+                        Debug.LogWarning("Caught scene name is empty! Please set it in the Inspector.");
+                    }
+                }
+            }
             return;
         }
 
-        // GO TO DOOR
+        // ====================== PLAYER OUT OF RANGE → STOP SOUND ======================
+        if (audioSource != null && audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
+
+        // ====================== GO TO DOOR ======================
         if (currentDoor != null)
         {
             agent.SetDestination(currentDoor.position);
-
-            float distanceToDoor =
-                Vector3.Distance(transform.position, currentDoor.position);
+            float distanceToDoor = Vector3.Distance(transform.position, currentDoor.position);
 
             if (distanceToDoor <= 1.5f)
             {
@@ -75,7 +107,6 @@ public class NPCFollow : MonoBehaviour
                 {
                     currentDoorScript.OpenDoor();
                 }
-
                 currentDoor = null;
                 currentDoorScript = null;
             }
@@ -87,7 +118,6 @@ public class NPCFollow : MonoBehaviour
         }
     }
 
-    // ✅ TRIGGER INSTEAD OF COLLISION
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -96,14 +126,12 @@ public class NPCFollow : MonoBehaviour
             {
                 animator.SetTrigger(attackTrigger);
             }
-
             gameObject.SetActive(false);
         }
 
         if (other.CompareTag("Bullet"))
         {
             currentHits++;
-
             Destroy(other.gameObject);
 
             if (currentHits >= hitsToDisable)
@@ -125,7 +153,6 @@ public class NPCFollow : MonoBehaviour
         {
             animator.SetTrigger(deathTrigger);
         }
-
         Invoke(nameof(FinishDeath), disableDelay);
     }
 
@@ -136,7 +163,6 @@ public class NPCFollow : MonoBehaviour
             keyObject.transform.position = transform.position;
             keyObject.SetActive(true);
         }
-
         gameObject.SetActive(false);
     }
 }

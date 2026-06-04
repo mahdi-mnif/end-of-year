@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;   // ← Added for scene loading
 
 public class SpikeTrap : MonoBehaviour
 {
@@ -16,9 +17,12 @@ public class SpikeTrap : MonoBehaviour
     public LayerMask triggerLayers;
     public LayerMask deadlyLayers;
 
-    [Header("Backup Detection (Recommended for CharacterController)")]
-    public float detectionRadius = 1.2f;   // Adjust based on your trap size
+    [Header("Backup Detection")]
+    public float detectionRadius = 1.2f;
     public float checkInterval = 0.1f;
+
+    [Header("Death Settings")]
+    public string deathSceneName = "DeathScene";   // ← Set your scene name here in the Inspector
 
     private bool isActive = false;
     private Coroutine currentCycle;
@@ -31,15 +35,11 @@ public class SpikeTrap : MonoBehaviour
 
     private void Start()
     {
-        // Start backup detection (works even if OnTriggerEnter fails)
         StartCoroutine(BackupDetection());
     }
 
-    // ====================== MAIN TRIGGER (OnTriggerEnter) ======================
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"[SpikeTrap] OnTriggerEnter called by: {other.name} | Layer: {LayerMask.LayerToName(other.gameObject.layer)}");
-
         if (isActive) return;
 
         if (((1 << other.gameObject.layer) & triggerLayers) != 0)
@@ -56,7 +56,6 @@ public class SpikeTrap : MonoBehaviour
         }
     }
 
-    // ====================== BACKUP DETECTION (Very Reliable) ======================
     private IEnumerator BackupDetection()
     {
         while (true)
@@ -71,13 +70,8 @@ public class SpikeTrap : MonoBehaviour
             {
                 if (col.CompareTag("Player"))
                 {
-                    Debug.Log("[SpikeTrap] Backup detection triggered by Player!");
                     TriggerTrap();
-
-                    if (((1 << col.gameObject.layer) & deadlyLayers) != 0)
-                    {
-                        KillPlayer(col.gameObject);
-                    }
+                    KillPlayer(col.gameObject);
                     break;
                 }
             }
@@ -107,11 +101,19 @@ public class SpikeTrap : MonoBehaviour
 
     private void KillPlayer(GameObject player)
     {
-        Debug.Log("Player killed by spikes!");
-        Destroy(player);
+        Debug.Log("Player killed by spikes! Loading scene: " + deathSceneName);
+
+        // Load the scene you chose in the Inspector
+        if (!string.IsNullOrEmpty(deathSceneName))
+        {
+            SceneManager.LoadScene(deathSceneName);
+        }
+        else
+        {
+            Debug.LogWarning("Death scene name is empty! Please set it in the Inspector.");
+        }
     }
 
-    // Fallback for non-trigger colliders
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
@@ -120,7 +122,6 @@ public class SpikeTrap : MonoBehaviour
         }
     }
 
-    // Draw detection radius in Scene view (for easy adjustment)
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;

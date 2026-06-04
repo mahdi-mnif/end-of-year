@@ -14,6 +14,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Mahdi Temp/GameOver.unity
     guid: 465b912e4c05dde4584b29999ca38268
+  - enabled: 1
+    path: Assets/Mahdi Temp/END.unity
+    guid: aaeebf11b729e2540b3e4072065e64d6
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 6220ca5fec5757e46bb6645b52ba48d6, type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: c41b1862488bab344b56f6df8f3fe116, type: 2}
