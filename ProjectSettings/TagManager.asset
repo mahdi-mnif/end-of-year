@@ -3,7 +3,20 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Cobweb
+  - Key_Ice
+  - bullet
+  - Key_Code
+  - Key_Trap
+  - Candle
+  - Key_Basement
+  - CinemachineTarget
+  - Key_Gun
+  - Key_Eagle
+  - Key_Batteries
+  - Key_Door1
+  - PickableObject
   layers:
   - Default
   - TransparentFX
