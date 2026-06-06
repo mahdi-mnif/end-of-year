@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;   // ← Added for scene loading
 
 public class SpikeTrap : MonoBehaviour
 {
@@ -13,8 +14,15 @@ public class SpikeTrap : MonoBehaviour
     public float spikeDownDuration = 2f;
 
     [Header("Collision Settings")]
-    public LayerMask triggerLayers;           // Layers that activate the trap (Player + Interact)
-    public LayerMask deadlyLayers;            // Layers that kill the player (usually just Player)
+    public LayerMask triggerLayers;
+    public LayerMask deadlyLayers;
+
+    [Header("Backup Detection")]
+    public float detectionRadius = 1.2f;
+    public float checkInterval = 0.1f;
+
+    [Header("Death Settings")]
+    public string deathSceneName = "DeathScene";   // ← Set your scene name here in the Inspector
 
     private bool isActive = false;
     private Coroutine currentCycle;
@@ -25,7 +33,11 @@ public class SpikeTrap : MonoBehaviour
             spikeTrapAnim = GetComponent<Animator>();
     }
 
-    // ====================== TRAP ACTIVATION ======================
+    private void Start()
+    {
+        StartCoroutine(BackupDetection());
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (isActive) return;
@@ -34,7 +46,7 @@ public class SpikeTrap : MonoBehaviour
         {
             TriggerTrap();
         }
-        // This second OnTriggerEnter is intentional - Unity allows it
+
         if (((1 << other.gameObject.layer) & deadlyLayers) != 0)
         {
             if (other.CompareTag("Player"))
@@ -44,13 +56,35 @@ public class SpikeTrap : MonoBehaviour
         }
     }
 
+    private IEnumerator BackupDetection()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(checkInterval);
+
+            if (isActive) continue;
+
+            Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRadius, triggerLayers);
+
+            foreach (Collider col in colliders)
+            {
+                if (col.CompareTag("Player"))
+                {
+                    TriggerTrap();
+                    KillPlayer(col.gameObject);
+                    break;
+                }
+            }
+        }
+    }
+
     public void TriggerTrap()
     {
         if (isActive) return;
 
         isActive = true;
-        if (currentCycle != null) StopCoroutine(currentCycle);
 
+        if (currentCycle != null) StopCoroutine(currentCycle);
         currentCycle = StartCoroutine(SpikeCycle());
     }
 
@@ -65,23 +99,32 @@ public class SpikeTrap : MonoBehaviour
         isActive = false;
     }
 
-   
-
     private void KillPlayer(GameObject player)
     {
-        Debug.Log("Player killed by spikes!");
-        Destroy(player);
+        Debug.Log("Player killed by spikes! Loading scene: " + deathSceneName);
 
-        // Optional: disable the trap after killing player
-        // isActive = false;
+        // Load the scene you chose in the Inspector
+        if (!string.IsNullOrEmpty(deathSceneName))
+        {
+            SceneManager.LoadScene(deathSceneName);
+        }
+        else
+        {
+            Debug.LogWarning("Death scene name is empty! Please set it in the Inspector.");
+        }
     }
 
-    // Optional: Also support physical collision (if you turn Is Trigger OFF on spears)
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
             KillPlayer(collision.gameObject);
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, detectionRadius);
     }
 }

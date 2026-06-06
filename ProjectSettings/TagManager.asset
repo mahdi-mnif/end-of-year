@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Cobweb
   - Key_Ice
+<<<<<<< HEAD
   - bullet
   - Key_Code
   - Key_Trap
@@ -17,15 +18,29 @@ TagManager:
   - Key_Batteries
   - Key_Door1
   - PickableObject
+=======
+  - Key_Gun
+  - Key_Code
+  - Key_Door1
+  - CinemachineTarget
+  - Key_Trap
+  - Key_Eagle
+  - Candle
+  - Key_Basement
+  - Key_Batteries
+  - PickableObject
+  - Bullet
+  - Exit
+>>>>>>> 745693830fe19a96ff4770a8a73e564d2d5d82aa
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
-  - 
+  - NPC
+  - traps
   - 
   - 
   - 
