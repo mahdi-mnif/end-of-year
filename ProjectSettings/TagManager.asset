@@ -6,6 +6,19 @@ TagManager:
   tags:
   - Cobweb
   - Key_Ice
+<<<<<<< HEAD
+  - bullet
+  - Key_Code
+  - Key_Trap
+  - Candle
+  - Key_Basement
+  - CinemachineTarget
+  - Key_Gun
+  - Key_Eagle
+  - Key_Batteries
+  - Key_Door1
+  - PickableObject
+=======
   - Key_Gun
   - Key_Code
   - Key_Door1
@@ -18,6 +31,7 @@ TagManager:
   - PickableObject
   - Bullet
   - Exit
+>>>>>>> 745693830fe19a96ff4770a8a73e564d2d5d82aa
   layers:
   - Default
   - TransparentFX
