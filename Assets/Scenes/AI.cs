@@ -39,10 +39,18 @@ public class NPCFollow : MonoBehaviour
     public float disableDelay = 2f;
 
     private bool hasCaughtPlayer = false;
-
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+
+        // This will create the manager automatically if it doesn't exist
+        DifficultyManager manager = DifficultyManager.Instance;
+
+        detectionDistance = manager.CurrentDetectionDistance;
+        stopDistance = manager.CurrentStopDistance;
+        hitsToDisable = manager.CurrentHitsToDisable;
+
+        Debug.Log($"NPC received difficulty → Detection: {detectionDistance}, Stop: {stopDistance}, Hits: {hitsToDisable}");
     }
 
     void Update()

@@ -1472,7 +1472,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1770236128}
         m_TargetAssemblyTypeName: HomeManager, Assembly-CSharp
-        m_MethodName: PlayGame
+        m_MethodName: GoBackToLobby
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

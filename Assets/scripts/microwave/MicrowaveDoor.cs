@@ -23,7 +23,6 @@ namespace DoorScript
 
         void Start()
         {
-            asource = GetComponent<AudioSource>();
 
             closedRotation = transform.localRotation;
             openRotation = closedRotation * Quaternion.Euler(openRotationAxis.normalized * openAngle);
