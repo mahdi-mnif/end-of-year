@@ -24,7 +24,7 @@ public class UiDynamics : MonoBehaviour
 
             if (textComponent != null)
             {
-                textComponent.text = "[E] " + actionText;
+                textComponent.text = "[Y] " + actionText;
             }
         }
         else

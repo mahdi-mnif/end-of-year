@@ -10,7 +10,7 @@ public class PlayerInteraction : MonoBehaviour
         GameObject held = PlayerHand.currentHeldObject;
 
         // Drop logic
-        if (held != null && Input.GetKeyDown(KeyCode.E))
+        if (held != null &&  (VRInputManager.WasInteractPressed))
         {
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 4f))
@@ -35,7 +35,7 @@ public class PlayerInteraction : MonoBehaviour
                     UiDynamics.actionText = "Pick Up";
                     UiDynamics.uiActive = true;
 
-                    if (Input.GetKeyDown(KeyCode.E))
+                    if (VRInputManager.WasInteractPressed)
                         pick.TryPickUp();
                 }
             }

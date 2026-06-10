@@ -53,10 +53,10 @@ public class BurnableCobweb : MonoBehaviour
                 if (burnText != null)
                 {
                     burnText.gameObject.SetActive(true);
-                    burnText.text = "[E] Burn";
+                    burnText.text = "[Y] Burn";
                 }
 
-                if (Input.GetKeyDown(KeyCode.E))
+                if (VRInputManager.WasInteractPressed)
                 {
                     if (audioSource != null && burnSound != null)
                         audioSource.PlayOneShot(burnSound);

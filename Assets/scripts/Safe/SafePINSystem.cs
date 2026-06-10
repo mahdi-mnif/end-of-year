@@ -40,7 +40,7 @@ namespace DoorScript
 
         void Update()
         {
-            if (pinPanel.activeSelf && Input.GetKeyDown(KeyCode.Escape))
+            if (pinPanel.activeSelf && ConverterCancelX.WasInteractPressed)
             {
                 ClosePanel();
             }

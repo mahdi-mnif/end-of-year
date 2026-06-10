@@ -28,7 +28,7 @@ public class Gun : MonoBehaviour
         if (PlayerHand.currentHeldObject != gameObject)
             return;
 
-        if (Input.GetMouseButton(0) && Time.time >= nextTimeToFire)
+        if(Converter0trig.WasInteractPressed && Time.time >= nextTimeToFire)
         {
             Shoot();
             nextTimeToFire = Time.time + fireRate;

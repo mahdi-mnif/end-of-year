@@ -1,47 +1,37 @@
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Collections;
 
-public class HomeManager : MonoBehaviour
+public class MenuManager : MonoBehaviour
 {
-    [Header("Scene Names")]
-    public string mainSceneName = "KEY";        // ? Change to your exact main scene name
-    public string lobbySceneName = "UI Lobby";  // ? Change to your exact lobby scene name
+    [SerializeField] private string playSceneName;
 
     public void PlayGame()
     {
-        StartCoroutine(LoadSceneAsync(mainSceneName));
+
+        CleanSceneSwitch("KEY", false, CursorLockMode.Locked);
     }
 
     public void GoBackToLobby()
     {
-        StartCoroutine(LoadSceneAsync(lobbySceneName));
+
+        CleanSceneSwitch("UI Lobby", true, CursorLockMode.Locked);
     }
 
-    private IEnumerator LoadSceneAsync(string sceneName)
+    private void CleanSceneSwitch(string sceneName, bool showCursor, CursorLockMode lockMode)
     {
-        // Load the scene asynchronously
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
+        // 1. Reset time scale in case the game scene was paused
+        Time.timeScale = 1f;
 
-        // Wait until the scene is fully loaded
-        while (!asyncLoad.isDone)
-        {
-            yield return null;
-        }
+        // 2. Clear out unused assets and garbage memory from the previous scene
+        Resources.UnloadUnusedAssets();
+        System.GC.Collect();
 
-        // Set the new scene as the active scene (fixes dark lighting + many bugs)
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
+        // 3. Update cursor settings safely
+        Cursor.visible = showCursor;
+        Cursor.lockState = lockMode;
 
-        // Cursor settings depending on which scene we loaded
-        if (sceneName == mainSceneName)
-        {
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
-        }
-        else if (sceneName == lobbySceneName)
-        {
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-        }
+        // 4. Load the scene normally (Single mode completely unloads the current scene)
+        SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
     }
 }

@@ -49,7 +49,7 @@ namespace CameraDoorScript
                     text.SetActive(true);
                     textUI.text = exitPromptText;
 
-                    if (Input.GetKeyDown(KeyCode.E))
+                    if (VRInputManager.WasInteractPressed)
                     {
                         if (!string.IsNullOrEmpty(exitSceneName))
                         {
@@ -75,24 +75,24 @@ namespace CameraDoorScript
 
                     if (safePIN != null && !safePIN.IsUnlocked)
                     {
-                        textUI.text = "[E] Enter Code";
+                        textUI.text = "[Y] Enter Code";
                     }
                     else if (lockedDoor != null && lockedDoor.isLocked)
                     {
-                        textUI.text = "[E] Unlock Door";
+                        textUI.text = "[Y] Unlock Door";
                     }
                     else if (normalDoor != null && normalDoor.open ||
                              lockedDoor != null && lockedDoor.open ||
                              microwaveDoor != null && microwaveDoor.open)
                     {
-                        textUI.text = "[E] Close Door";
+                        textUI.text = "[Y] Close Door";
                     }
                     else
                     {
-                        textUI.text = "[E] Open Door";
+                        textUI.text = "[Y] Open Door";
                     }
 
-                    if (Input.GetKeyDown(KeyCode.E))
+                    if (VRInputManager.WasInteractPressed)
                     {
                         if (safePIN != null)
                             safePIN.TryOpenSafe();

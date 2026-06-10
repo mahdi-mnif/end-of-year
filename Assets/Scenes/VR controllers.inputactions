@@ -1,0 +1,94 @@
+{
+    "name": "VR controllers",
+    "maps": [
+        {
+            "name": "converter",
+            "id": "adc18cfb-9f10-408e-ae5a-51e3148d6b00",
+            "actions": [
+                {
+                    "name": "Y+E",
+                    "type": "Button",
+                    "id": "3e89ce23-a872-42c3-a431-9e1d20f1e868",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "0+trig",
+                    "type": "Button",
+                    "id": "9c5a7f74-ab8c-44a8-8426-2c7b068efeef",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Escape+X",
+                    "type": "Button",
+                    "id": "6338e411-1aad-47f5-8200-5f52608d2ada",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "B",
+                    "type": "Button",
+                    "id": "86ce835b-f819-4a31-83dd-e62f5e391725",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "2378aa30-aef1-4536-91bc-98ffcd169b65",
+                    "path": "<XRController>{LeftHand}/{SecondaryButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Y+E",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "53dd0b85-943c-414e-9405-dd168125a170",
+                    "path": "<XRController>{RightHand}/{TriggerButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "0+trig",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "51974e68-3d99-42c7-a319-c7745b1a78a0",
+                    "path": "<XRController>{LeftHand}/{PrimaryButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Escape+X",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b9e10800-2eb2-469a-b260-644f9621e109",
+                    "path": "<XRController>{RightHand}/{SecondaryButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "B",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

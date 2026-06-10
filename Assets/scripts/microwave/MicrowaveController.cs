@@ -58,7 +58,7 @@ public class MicrowaveController : MonoBehaviour
             UiDynamics.actionText = "Put Inside";
             UiDynamics.uiActive = true;
 
-            if (Input.GetKeyDown(KeyCode.E))
+            if (VRInputManager.WasInteractPressed)
                 PutIceInside(held);
             return;
         }
@@ -69,7 +69,7 @@ public class MicrowaveController : MonoBehaviour
             UiDynamics.actionText = "Insert Batteries";
             UiDynamics.uiActive = true;
 
-            if (Input.GetKeyDown(KeyCode.E))
+            if (VRInputManager.WasInteractPressed)
                 InsertBatteries(held);
             return;
         }
@@ -80,7 +80,7 @@ public class MicrowaveController : MonoBehaviour
             UiDynamics.actionText = "Turn On";
             UiDynamics.uiActive = true;
 
-            if (Input.GetKeyDown(KeyCode.E))
+            if (VRInputManager.WasInteractPressed)
                 StartCooking();
             return;
         }
