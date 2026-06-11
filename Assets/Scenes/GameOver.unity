@@ -417,7 +417,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d101cd01c7324a142a7be89d106bf6db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playSceneName: KEY
+  playSceneName: Mahdi_VR
 --- !u!4 &353827952
 Transform:
   m_ObjectHideFlags: 0
@@ -546,7 +546,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &484100970
 Light:
   m_ObjectHideFlags: 0
